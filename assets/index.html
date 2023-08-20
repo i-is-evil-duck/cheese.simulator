@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cursor Follower</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        html {
+            cursor: none;
+        }
+        body {
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        #follow {
+            position: absolute;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        .newImg {
+            position: absolute;
+            z-index: 0;
+            user-drag: none;
+            user-select: none;
+        }
+        #follow img {
+            pointer-events: none;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            var clickCounter = 0;
+            var imageSize = { width: 100, height: 100 };
+
+            var mp3Files = ["sound1.mp3", "sound2.mp3", "sound3.mp3", "sound4.mp3", "sound5.mp3"];
+
+            function updateFollowerPosition(event) {
+                var cursorX = event.pageX;
+                var cursorY = event.pageY;
+
+                var followerX = cursorX - imageSize.width / 2;
+                var followerY = cursorY - imageSize.height / 2;
+
+                $("#follow").css({
+                    left: followerX,
+                    top: followerY
+                });
+            }
+
+            function getRandomPosition() {
+                var screenWidth = $(window).width();
+                var screenHeight = $(window).height();
+                var randomX = Math.floor(Math.random() * (screenWidth - 40));
+                var randomY = Math.floor(Math.random() * (screenHeight - 40));
+                return { x: randomX, y: randomY };
+            }
+
+            function createRandomImage() {
+                var randomPosition = getRandomPosition();
+                var newImg = $('<img>').attr('src', '2.png').addClass('newImg');
+                newImg.css({
+                    left: randomPosition.x,
+                    top: randomPosition.y
+                });
+                $('body').append(newImg);
+
+                newImg.on("click", function () {
+                    var randomIndex = Math.floor(Math.random() * mp3Files.length);
+                    var selectedMP3 = mp3Files[randomIndex];
+                    $("#audio").attr("src", selectedMP3);
+                    $("#audio")[0].play();
+
+                    $(this).remove();
+                    clickCounter++;
+                    $("#counter").text("Counter: " + clickCounter);
+                });
+
+                var randomInterval = 50 + Math.random() * 1000;
+                setTimeout(createRandomImage, randomInterval);
+            }
+
+            $(document).on("mousemove", function (event) {
+                updateFollowerPosition(event);
+            });
+
+            createRandomImage();
+        });
+    </script>
+</head>
+<body>
+    <div id="follow"><img src="https://cheese-v11.i-is-evil-duck.repl.co/1.png" width="100" height="100"></div>
+    <div id="counter">Counter: 0</div>
+    <audio id="audio" src="sound.mp3"></audio>
+</body>
+</html>
