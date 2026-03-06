@@ -4,7 +4,7 @@
 
 
 ## Cheese Simulator
-### <a href="https://iced-respected-taleggio.glitch.me/">Play On Glitch</a>
+### <a href="cheese-simulator.evilduckz.net/">Play Now</a>
 
 ## ToDo
 + Better Sounds
