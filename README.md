@@ -4,7 +4,7 @@
 
 
 ## Cheese Simulator
-### <a href="cheese-simulator.evilduckz.net/">Play Now</a>
+### <a href="https://cheese-simulator.j3ly.com/">Play Now</a>
 
 ## ToDo
 + Better Sounds
