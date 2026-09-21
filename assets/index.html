@@ -1,120 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Cursor Follower</title>
-
-<style>
-html {
-    cursor: none; /* hide default cursor */
-}
-body {
-    margin: 0;
-    overflow: hidden;
-    position: relative;
-}
-#follow {
-    position: absolute;
-    z-index: 9999;
-    pointer-events: none;
-}
-.newImg {
-    position: absolute;
-    z-index: 0;
-    user-select: none;
-    -webkit-user-drag: none; /* prevent drag in Chrome/Safari */
-    user-drag: none;          /* prevent drag in other browsers */
-}
-#follow img {
-    pointer-events: none;
-}
-#counter {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    font-size: 20px;
-    color: black;
-    z-index: 10000;
-}
-</style>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cheese Simulator</title>
+<link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
 <div id="follow">
-    <img src="cheese-man.gif" width="100" height="100">
+  <img src="cheese-man.gif" width="100" height="100" alt="cursor" />
 </div>
 
-<div id="counter">Counter: 0</div>
+<div id="hud">
+  <div class="pill"><small>SCORE</small><span id="score-val">0</span></div>
+  <div class="pill" id="combo-pill"><small>COMBO</small><span id="combo-val">—</span></div>
+  <div class="pill"><small>LEVEL</small><span id="level-val">1</span></div>
+  <div class="pill"><small>BEST</small><span id="best-val">0</span></div>
+</div>
 
-<audio id="audio" src="sound.mp3"></audio>
+<div id="controls">
+  <button id="pause-btn" type="button">Pause</button>
+  <button id="mute-btn" type="button">Mute</button>
+  <button id="reset-btn" type="button">Reset</button>
+</div>
 
-<script>
-let clickCounter = 0;
-const imageSize = { width:100, height:100 };
+<div id="overlay">
+  <div class="card">
+    <h1>🧀 Cheese Simulator</h1>
+    <p id="overlay-text">Click the cheese to eat it. Golden cheese is worth big points — avoid the <b>cursed face</b>!</p>
+    <div class="legend">
+      <div>🧀 Normal cheese — <b>+1</b> (combo x2 at 3 streak, x3 at 5)</div>
+      <div>✨ Golden cheese — <b>+5 × combo</b></div>
+      <div>👤 Cursed face — <b>-2</b> and breaks your combo</div>
+      <div>📈 Every 10 eaten = next level (faster spawns)</div>
+    </div>
+    <p><kbd>P</kbd> pause · <kbd>M</kbd> mute · best score is saved locally</p>
+    <h2 id="overlay-title" style="display:none"></h2>
+    <button id="start-btn" class="big-btn" type="button">Start eating</button>
+  </div>
+</div>
 
-const mp3Files = [
-    "sound1.mp3",
-    "sound2.mp3",
-    "sound3.mp3",
-    "sound4.mp3",
-    "sound5.mp3"
-];
-
-const follower = document.getElementById("follow");
-const counter = document.getElementById("counter");
-const audio = document.getElementById("audio");
-
-function updateFollowerPosition(event) {
-    const followerX = event.pageX - imageSize.width / 2;
-    const followerY = event.pageY - imageSize.height / 2;
-
-    follower.style.left = followerX + "px";
-    follower.style.top = followerY + "px";
-}
-
-function getRandomPosition() {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-
-    const randomX = Math.floor(Math.random() * (screenWidth - 40));
-    const randomY = Math.floor(Math.random() * (screenHeight - 40));
-
-    return {x: randomX, y: randomY};
-}
-
-function createRandomImage() {
-    const pos = getRandomPosition();
-
-    const img = document.createElement("img");
-    img.src = "2.png";
-    img.className = "newImg";
-
-    img.style.left = pos.x + "px";
-    img.style.top = pos.y + "px";
-
-    // Make image non-draggable
-    img.draggable = false;
-
-    document.body.appendChild(img);
-
-    img.addEventListener("click", function() {
-        const randomIndex = Math.floor(Math.random() * mp3Files.length);
-        audio.src = mp3Files[randomIndex];
-        audio.play();
-
-        img.remove();
-        clickCounter++;
-        counter.innerText = "Counter: " + clickCounter;
-    });
-
-    const randomInterval = 50 + Math.random() * 1000;
-    setTimeout(createRandomImage, randomInterval);
-}
-
-document.addEventListener("mousemove", updateFollowerPosition);
-createRandomImage();
-</script>
-
+<script src="game.js"></script>
 </body>
 </html>
