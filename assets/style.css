@@ -51,7 +51,8 @@ body {
 .float-score {
     position: absolute;
     z-index: 9998;
-    font-size: 20px;
+    font-size: 32px;
+    font-weight: 900;
     pointer-events: none;
 }
 #hud {

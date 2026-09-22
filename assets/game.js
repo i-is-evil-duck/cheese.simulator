@@ -76,6 +76,18 @@
     setTimeout(() => el.remove(), 850);
   }
 
+  const COMIC = '"Comic Sans MS", "Comic Sans", cursive';
+  const POPUP_YELLOW = "#e6a800";
+
+  function pick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  const MSGS_1 = ["+1 CHEESE!", "+1 NOM!", "+1 YUM!", "+1 MUNCH!", "+1 TASTY!"];
+  const MSGS_2 = ["+2 WOW!", "+2 NICE!", "+2 DOUBLE!", "+2 SNACK!", "+2 YUMMY!"];
+  const MSGS_3 = ["+3 COMBO!", "+3 CRAZY!", "+3 CHEESY!", "+3 TRIPLE!", "+3 FEAST!"];
+  const MSGS_CURSED = ["+5 SPOOKY!", "+5 CURSED!", "+5 FACE!", "+5 GHOST!", "+5 WILD!"];
+
   function eat(type, x, y) {
     const now = Date.now();
     if (now - state.lastEatAt < COMBO_WINDOW_MS) {
@@ -88,14 +100,16 @@
     let gained = 0;
     if (type === "cursed") {
       gained = 5;
-      floatText(x, y, "+5");
+      floatText(x, y, pick(MSGS_CURSED), COMIC, POPUP_YELLOW);
     } else {
       const mult = state.comboCount >= 5 ? 3 : state.comboCount >= 3 ? 2 : 1;
       gained = 1 * mult;
       if (mult === 3) {
-        floatText(x, y, "+3 COMBO!", '"Comic Sans MS", "Comic Sans", cursive', "#f5b301");
+        floatText(x, y, pick(MSGS_3), COMIC, POPUP_YELLOW);
+      } else if (mult === 2) {
+        floatText(x, y, pick(MSGS_2), COMIC, POPUP_YELLOW);
       } else {
-        floatText(x, y, "+" + gained, mult > 1 ? '"Comic Sans MS", "Comic Sans", cursive' : null);
+        floatText(x, y, pick(MSGS_1), COMIC, POPUP_YELLOW);
       }
     }
 
@@ -153,7 +167,7 @@
   }
 
   function moveFollower(clientX, clientY) {
-    const size = window.innerWidth < 600 ? 60 : 90;
+    const size = window.innerWidth < 600 ? 48 : 60;
     follower.style.left = (clientX - size / 2 + window.scrollX) + "px";
     follower.style.top = (clientY - size / 2 + window.scrollY) + "px";
   }
