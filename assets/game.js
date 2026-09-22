@@ -167,7 +167,7 @@
   }
 
   function moveFollower(clientX, clientY) {
-    const size = window.innerWidth < 600 ? 48 : 60;
+    const size = window.innerWidth < 600 ? 54 : 72;
     follower.style.left = (clientX - size / 2 + window.scrollX) + "px";
     follower.style.top = (clientY - size / 2 + window.scrollY) + "px";
   }
@@ -201,6 +201,7 @@
 
   pauseBtn.addEventListener("click", () => (state.running ? pause() : resume()));
   document.addEventListener("dragstart", (e) => e.preventDefault());
+  document.addEventListener("contextmenu", (e) => e.preventDefault());
   document.addEventListener("keydown", (e) => {
     if (e.key === "p" || e.key === "P") state.running ? pause() : resume();
   });
