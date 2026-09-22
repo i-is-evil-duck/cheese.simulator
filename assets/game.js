@@ -83,7 +83,14 @@
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
-  const MSGS = ["CHEESE!", "NOM!", "WOW!", "COMBO!", "TRIPPLE!", "NICE!", "WOWZA!", "QUINTIPLE!"];
+  const MSGS_1 = ["CHEESE!", "NOM!", "WOW!", "NICE!", "WOWZA!", "COMBO!"];
+  const TUPLES = { 2: "DOUBLE", 3: "TRIPPLE", 4: "QUADRUPLE", 5: "QUINTUPLE", 6: "SEXTUPLE", 7: "SEPTUPLE", 8: "OCTUPLE", 9: "NONUPLE", 10: "DECUPLE" };
+
+  function popupText(gained) {
+    if (gained >= 2 && gained <= 10) return "+" + gained + " " + TUPLES[gained] + "!";
+    if (gained > 10) return "+" + gained + " COMBO!";
+    return "+" + gained + " " + pick(MSGS_1);
+  }
 
   function eat(type, x, y) {
     const now = Date.now();
@@ -98,10 +105,10 @@
     if (type === "cursed") {
       gained = 5;
     } else {
-      const mult = state.comboCount >= 5 ? 3 : state.comboCount >= 3 ? 2 : 1;
-      gained = 1 * mult;
+      // Streak climbs the multiplier ladder: +1, +2 DOUBLE, +3 TRIPPLE ... +10 DECUPLE
+      gained = Math.min(Math.max(state.comboCount, 1), 10);
     }
-    floatText(x, y, "+" + gained + " " + pick(MSGS), COMIC, POPUP_YELLOW);
+    floatText(x, y, popupText(gained), COMIC, POPUP_YELLOW);
 
     state.score = Math.max(0, state.score + gained);
     state.eaten += 1;
