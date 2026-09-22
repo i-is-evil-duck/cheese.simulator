@@ -32,22 +32,19 @@ Then open http://localhost:8080 in your browser.
 
 ## Features
 
-- **Combo system** — eat within 2.5s to build streaks (x2 at 3, x3 at 5)
-- **Golden cheese** (10%) — worth +5 × combo
-- **Cursed face** (8%) — -2 points and breaks your combo
+- **Combo system** — eat within 2.5s to build streaks (x2 at 3, x3 at 5, base 1 point per cheese)
+- **Cursed face** (10%) — worth +5 points
 - **Levels** — every 10 eaten speeds up spawns and shrinks despawn time
-- **HUD** — score, combo, level, and persistent best (`localStorage`)
-- **Sounds** — 5 preloaded SFX with overlap + mute toggle (fixed missing `sound.mp3` ref)
-- **Pause / reset** — `P` to pause, auto-pause on tab hide, DOM capped at 40 nodes with expiring cheese
+- **Counter + persistent best** (`localStorage`)
+- **Sounds** — 5 SFX with overlap (fixed missing `sound.mp3` ref)
+- **Pause** — button or `P`, auto-pause on tab hide, DOM capped at 40 nodes with expiring cheese
 - **Mobile** — touch to eat, responsive follower
 
 ## Usage
 
-Click (or tap) cheese to eat it. Avoid the face.
+Click (or tap) cheese to eat it. Normal cheese is 1 point times your combo multiplier, the face is 5 points flat.
 
-- **Start / Resume** — start button or `P`
-- **Mute** — Mute button or `M`
-- **Reset** — Reset button clears score/combo/level (best is kept)
+- **Pause / Resume** — Pause button or `P`
 
 ## Views
 

@@ -1,45 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Cheese Simulator</title>
+<title>Cursor Follower</title>
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
 <div id="follow">
-  <img src="cheese-man.gif" width="100" height="100" alt="cursor" />
+  <img src="cheese-man.gif" width="100" height="100" />
 </div>
 
-<div id="hud">
-  <div class="pill"><small>SCORE</small><span id="score-val">0</span></div>
-  <div class="pill" id="combo-pill"><small>COMBO</small><span id="combo-val">—</span></div>
-  <div class="pill"><small>LEVEL</small><span id="level-val">1</span></div>
-  <div class="pill"><small>BEST</small><span id="best-val">0</span></div>
-</div>
-
-<div id="controls">
-  <button id="pause-btn" type="button">Pause</button>
-  <button id="mute-btn" type="button">Mute</button>
-  <button id="reset-btn" type="button">Reset</button>
-</div>
-
-<div id="overlay">
-  <div class="card">
-    <h1>🧀 Cheese Simulator</h1>
-    <p id="overlay-text">Click the cheese to eat it. Golden cheese is worth big points — avoid the <b>cursed face</b>!</p>
-    <div class="legend">
-      <div>🧀 Normal cheese — <b>+1</b> (combo x2 at 3 streak, x3 at 5)</div>
-      <div>✨ Golden cheese — <b>+5 × combo</b></div>
-      <div>👤 Cursed face — <b>-2</b> and breaks your combo</div>
-      <div>📈 Every 10 eaten = next level (faster spawns)</div>
-    </div>
-    <p><kbd>P</kbd> pause · <kbd>M</kbd> mute · best score is saved locally</p>
-    <h2 id="overlay-title" style="display:none"></h2>
-    <button id="start-btn" class="big-btn" type="button">Start eating</button>
-  </div>
-</div>
+<div id="counter">Counter: 0</div>
+<div id="best">Best: 0</div>
+<button id="pause-btn" type="button">Pause</button>
 
 <script src="game.js"></script>
 </body>
