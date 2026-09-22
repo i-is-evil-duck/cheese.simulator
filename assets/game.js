@@ -148,9 +148,16 @@
   }
 
   function moveFollower(clientX, clientY) {
-    const size = window.innerWidth < 600 ? 64 : 100;
+    const size = window.innerWidth < 600 ? 96 : 140;
     follower.style.left = (clientX - size / 2 + window.scrollX) + "px";
     follower.style.top = (clientY - size / 2 + window.scrollY) + "px";
+  }
+
+  let pulseTimer = null;
+  function pulseCursor() {
+    follower.classList.add("pulse");
+    clearTimeout(pulseTimer);
+    pulseTimer = setTimeout(() => follower.classList.remove("pulse"), 150);
   }
 
   function pause() {
@@ -167,12 +174,14 @@
   }
 
   document.addEventListener("mousemove", (e) => moveFollower(e.pageX, e.pageY));
+  document.addEventListener("pointerdown", pulseCursor);
   document.addEventListener("touchmove", (e) => {
     const t = e.touches[0];
     if (t) moveFollower(t.pageX, t.pageY);
   }, { passive: true });
 
   pauseBtn.addEventListener("click", () => (state.running ? pause() : resume()));
+  document.addEventListener("dragstart", (e) => e.preventDefault());
   document.addEventListener("keydown", (e) => {
     if (e.key === "p" || e.key === "P") state.running ? pause() : resume();
   });

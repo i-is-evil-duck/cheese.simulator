@@ -1,6 +1,11 @@
 html {
     cursor: none;
 }
+* {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
 body {
     margin: 0;
     overflow: hidden;
@@ -13,6 +18,10 @@ body {
 }
 #follow img {
     pointer-events: none;
+    transition: transform 0.12s ease-out;
+}
+#follow.pulse img {
+    transform: scale(0.7);
 }
 .cheese {
     position: absolute;
