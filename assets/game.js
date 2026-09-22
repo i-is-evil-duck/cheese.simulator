@@ -153,7 +153,7 @@
   }
 
   function moveFollower(clientX, clientY) {
-    const size = window.innerWidth < 600 ? 96 : 140;
+    const size = window.innerWidth < 600 ? 60 : 90;
     follower.style.left = (clientX - size / 2 + window.scrollX) + "px";
     follower.style.top = (clientY - size / 2 + window.scrollY) + "px";
   }
