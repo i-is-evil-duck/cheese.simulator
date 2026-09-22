@@ -83,10 +83,7 @@
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
-  const MSGS_1 = ["+1 CHEESE!", "+1 NOM!", "+1 YUM!", "+1 MUNCH!", "+1 TASTY!"];
-  const MSGS_2 = ["+2 WOW!", "+2 NICE!", "+2 DOUBLE!", "+2 SNACK!", "+2 YUMMY!"];
-  const MSGS_3 = ["+3 COMBO!", "+3 CRAZY!", "+3 CHEESY!", "+3 TRIPLE!", "+3 FEAST!"];
-  const MSGS_CURSED = ["+5 SPOOKY!", "+5 CURSED!", "+5 FACE!", "+5 GHOST!", "+5 WILD!"];
+  const MSGS = ["CHEESE!", "NOM!", "WOW!", "COMBO!", "TRIPPLE!", "NICE!", "WOWZA!", "QUINTIPLE!"];
 
   function eat(type, x, y) {
     const now = Date.now();
@@ -100,18 +97,11 @@
     let gained = 0;
     if (type === "cursed") {
       gained = 5;
-      floatText(x, y, pick(MSGS_CURSED), COMIC, POPUP_YELLOW);
     } else {
       const mult = state.comboCount >= 5 ? 3 : state.comboCount >= 3 ? 2 : 1;
       gained = 1 * mult;
-      if (mult === 3) {
-        floatText(x, y, pick(MSGS_3), COMIC, POPUP_YELLOW);
-      } else if (mult === 2) {
-        floatText(x, y, pick(MSGS_2), COMIC, POPUP_YELLOW);
-      } else {
-        floatText(x, y, pick(MSGS_1), COMIC, POPUP_YELLOW);
-      }
     }
+    floatText(x, y, "+" + gained + " " + pick(MSGS), COMIC, POPUP_YELLOW);
 
     state.score = Math.max(0, state.score + gained);
     state.eaten += 1;
