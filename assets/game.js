@@ -64,13 +64,14 @@
     return Math.random() < 0.1 ? "cursed" : "normal";
   }
 
-  function floatText(x, y, text, font) {
+  function floatText(x, y, text, font, color) {
     const el = document.createElement("div");
     el.className = "float-score";
     el.textContent = text;
     el.style.left = x + "px";
     el.style.top = y + "px";
     if (font) el.style.fontFamily = font;
+    if (color) el.style.color = color;
     document.body.appendChild(el);
     setTimeout(() => el.remove(), 850);
   }
@@ -91,7 +92,11 @@
     } else {
       const mult = state.comboCount >= 5 ? 3 : state.comboCount >= 3 ? 2 : 1;
       gained = 1 * mult;
-      floatText(x, y, "+" + gained, mult > 1 ? '"Comic Sans MS", "Comic Sans", cursive' : null);
+      if (mult === 3) {
+        floatText(x, y, "+3 COMBO!", '"Comic Sans MS", "Comic Sans", cursive', "#f5b301");
+      } else {
+        floatText(x, y, "+" + gained, mult > 1 ? '"Comic Sans MS", "Comic Sans", cursive' : null);
+      }
     }
 
     state.score = Math.max(0, state.score + gained);
